@@ -6,4 +6,5 @@
 1. javascriptの導入、図を動かせるようにする
 ---
 processingのインストール、何か書いてみる 
->processingの特徴　　
+>processingの特徴  
+a
