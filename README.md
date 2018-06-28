@@ -7,7 +7,7 @@
 ---
 processingのインストール、何か書いてみる  
 
-#>processingのとは  
+>processingのとは  
 
 >processingの特徴  
 オープンソースで開発されている。  
