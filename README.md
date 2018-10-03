@@ -16,3 +16,13 @@ processingのインストール、何か書いてみる
 Processing.jsを使用すれば端末問わずブラウザで動作可能  
 Windows、Mac OS X、Linux上で動作するプログラミング言語  
 実行結果を確認することがすごく容易  
+void setup() {
+  size(640, 360);
+  background(102);
+}
+void draw() {
+  stroke(255);
+  if (mousePressed==true){
+    line(mouseX, mouseY, pmouseX, pmouseY);
+  }
+}
