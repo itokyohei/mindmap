@@ -26,3 +26,7 @@ void draw() {
     line(mouseX, mouseY, pmouseX, pmouseY);
   }
 }
+---
+>研究背景
+<br>今まで生きてきた中でpcを使い何かを作ったり調べたりという機会が多く、何も意識すること無くIllustratorやphotoshopと言ったお絵かきアプリや、pc内に常備されている機能、検索機能などを使用してきた。
+大学生になり
