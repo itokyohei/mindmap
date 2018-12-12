@@ -29,7 +29,7 @@ void draw() {
 
 ---
 >processingのインストール方法  
-1…processingの公式サイトである「https://processing.org/」にとび
+1…processingの公式サイトである「https://processing.org/」　にとび
 
 
 
