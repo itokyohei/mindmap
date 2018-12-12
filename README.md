@@ -10,16 +10,16 @@ processingのインストール、何か書いてみる
 >processingのとは  
 画像処理、アニメーション、音楽のようなデザイン面にすぐれたプログラミング言語
 
-void setup() {
-  size(640, 360);
-  background(102);
-}
-void draw() {
-  stroke(255);
-  if (mousePressed==true){
-    line(mouseX, mouseY, pmouseX, pmouseY);
-  }
-}
+void setup() {  
+  size(640, 360);  
+  background(102);  
+}  
+void draw() {  
+  stroke(255);  
+  if (mousePressed==true){  
+    line(mouseX, mouseY, pmouseX, pmouseY);  
+  }  
+}  
 ---
 >研究背景
 今まで生きてきた中でpcを使い何かを作ったり調べたりという機会が多く、何も意識すること無くIllustratorやPhotoshopと言ったお絵かきアプリや、pc内に常備されている機能、web browserでの検索機能などを使用してきた。  
