@@ -66,5 +66,40 @@ processingはDesign By Numberとは違い、フルカラー・100ピクセルよ
 
 ---
 >使用した関数一覧  
-引用…https://processing.org/reference/  ko
+引用…https://processing.org/reference/  公式  
+
+PGraphics…新たに画面を作成し、それを指定した場所に呼び出す関数  
+例…  
+PGraphics pg;
+
+void setup() {
+  size(100, 100);
+  pg = createGraphics(40, 40);
+}
+
+void draw() {
+  pg.beginDraw();
+  pg.background(100);
+  pg.stroke(255);
+  pg.line(20, 20, mouseX, mouseY);
+  pg.endDraw();
+  image(pg, 9, 30); 
+  image(pg, 51, 30);
+}  
+初期に作成した(100,100)の画面上ではなく、(40,40)のキャンバスを作成しそこに図を作成  
+pg.beginDraw();～pg.endDraw();の中に、新しく作成をしたキャンバスで動かしたいものの指示を書き込み、imageで今作成したものを呼び出したい位置を指定
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
