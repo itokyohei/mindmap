@@ -28,8 +28,9 @@ void draw() {
 なので、このprocessingを用いて当初の目的であったアプリや機能の作成を自分のような初心者にもわかるような説明書を書いていこうという方向性の元、卒業論文を書いていこうと思う。  
 
 ---
->processingのインストール方法
-<br>
+>processingのインストール方法  
+1…processingの公式サイトである「https://processing.org/」にとび
+
 
 
 ---
