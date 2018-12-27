@@ -99,7 +99,7 @@ pg.beginDraw();～pg.endDraw();の中に、新しく作成をしたキャンバ�
 ---
 >processing.jsを使い、作成したものをweb上で動かす方法  
 ---
-
+>デバック方法
 
 
 
