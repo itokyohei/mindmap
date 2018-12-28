@@ -121,7 +121,58 @@ Processingのスケッチ公開の場として写真共有サービスのFlickr�
 Flickr…https://www.flickr.com/groups/processing/  
 Vimeo…https://vimeo.com/channels/processing  
 ---
->
+>エラーメッセージ一覧  
+Syntax error,meybe a missing semicolon?  
+Syntax error on token "《文字・記号》",delete  
+this token  
+Stntax Error,～  
+unexpected token:《文字・記号》  
+エラー内容…プログラムのコンパイル時、処理できない文字やルールの間違った記号を検出した。  
+対処方法…プログラムの文法エラーのため打ち間違いや記号の抜けミス確認  
+Syntax error,maybe missing right parenthesis?  
+エラー内容…パーレン(丸かっこ)の開く/閉じるミス  
+対処方法…エラー行の丸かっこが正しく対応されているのかの確認  
+Found one too many {characters without a} to match it.  
+エラー内容…カーリーブレース(波かっこ)の開く/閉じるミス  
+対処方法…エラー行の波かっこが正しく対応しているかの確認  
+Cannot convert from《データ型1》to 《データ2型》  
+エラー内容…代入しようとしているデータ型と、代入滝の変数データ型が合わない  
+対処方法…変数のデータ型を確認して、代入するデータ型に合わせて宣言する。float型のデータを整数として代入したいような場合は、データを変換する。  
+int int_data = (int)Math.random();  
+Cannot find anything named "《変数名》"  
+エラー内容…プログラム中で定義されていない変数名が使用された。  
+対処方法…変数名を間違えていないかの確認、使用している変数がローカル変数ならば、同じ関数内で宣言されているかの確認  
+The function《関数名》() does not exist.  
+エラー内容…プログラム中で定義されていない関数が使用された  
+対処方法…関数名の確認  
+The method《関数名》() in the type《プログラム名またはPApplet》 is not applicable for the arguments～  
+エラー内容…関数が知らない形式で呼ばれた。関数や命令に指定する引数の数やデータ型が間違っている。  
+対処方法…Processingの命令の使用方法が正しいかの確認。定義した関数の引数の数やデータ型で、正しく呼び出されているかの確認。  
+pushMatrix() cannot use push more than 32 times;  
+エラー内容…popMatrixが呼ばれていないままpushMatrixが連続して呼ばれた。pushMatrixとpopMatrixが呼ばれた。  
+対処方法…pushMatrixとpopMatrixの対応がおかしくないか確認  
+NullPointerException  
+エラー内容…オブジェクトを収める変数の中に、オブジェクトが用意されていない。  
+対処方法…PImage、PFont、配列などの変数に「new」命令でオブジェクトを格納しているかの確認  
+ArrayIndexOutOfBoundsException  
+エラー内容…配列のインデックスの指定が間違っている  
+対処方法…配列の長さ以上の数値を指定していないかを確かめる。配列のインデックスに、負の数値が入力されていないか確かめる。  
+java.lang.OutOfMemoryError  
+エラー内容…プログラムを実行するためのメモリーが不足している。  
+対処方法…使用している画像やフォントデータなどの容量が大きい場合は、適切なサイズに編集する。Processingに環境設定ウィンドウで「Set maximum abailable memory size to」の項目をチェックし、数値を増やす。
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
