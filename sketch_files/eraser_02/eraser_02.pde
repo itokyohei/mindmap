@@ -8,7 +8,7 @@ final int ERS_W = 8;  //消しゴム太さ
 final int COLOR_MAX = 100;
 
 void setup() {
-  size(300, 300 + 20);
+  size(300, 320);
   noCursor();  //カーソルを消す
   colorMode(HSB, COLOR_MAX);
 
