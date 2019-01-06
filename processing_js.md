@@ -53,7 +53,9 @@ void keyPressed(){
 　Processing.jsは、拡張子が.pdeであるProcessingのような実行ファイルとは違い、HTMLに読み込む.jsであるJavaScriptファイルになっている。  
 Processing.jsはProcessingの公式サイトのダウンロードページ(http://processingjs.org/download/)  からダウンロードすることが可能である。  
 ---  
->Processing.jsの使い方
+>Processing.jsの使い方  
+　Processing.jsでは、実際にWeb上で表示させたいHTMLファイルの中にProcessingのプログラムを書かずに、ファイルを読み込み実行することが可能である。  
+上記のようにProcessingファイルをHTML内で読み込ませるためには、Processing.jsを読み込んだHTML内のcanvasタグにdata-srcという属性でファイルのパスを書く。そうすることでcanvasタグのdata-src属性の情報からプログラムファイルを読み込み実行し、Web上に作成したProcessingのファイルを表示することが出来る。
 
 
 
