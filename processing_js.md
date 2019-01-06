@@ -51,7 +51,7 @@ void keyPressed(){
 ---
 >Processing.jsのダウンロード  
 　Processing.jsは、拡張子が.pdeであるProcessingのような実行ファイルとは違い、HTMLに読み込む.jsであるJavaScriptファイルになっている。  
-Processing.jsはProcessingの公式サイトのダウンロードページ(http://processingjs.org/download/)からダウンロードすることが可能である。  
+Processing.jsはProcessingの公式サイトのダウンロードページ(http://processingjs.org/download/)  からダウンロードすることが可能である。  
 ---  
 >Processing.jsの使い方
 
