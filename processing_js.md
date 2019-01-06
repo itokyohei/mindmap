@@ -48,8 +48,12 @@ void keyPressed(){
 >Processing.jsとは  
 　Webブラウザ上でProcessingのプログラムを解釈し、グラフィックを描画することの出来るJavaScriptで作られたProcessing互換ライブラリである。
  Processing.jsはグラフィックの描画にCanvasを導入しているという特徴がある。FirefoxやGoogle Chrome、Safari、OperaなどはこのCanvas要素の機能を持っているためWebブラウザで表示が可能である。しかしIEではこのCanvas要素が標準装備されていないため、IE用のCanvas互換ライブラリをしなければProcessing.jsのグラフィックを表示することが出来ないので注意が必要になる。  
+---
 >Processing.jsのダウンロード  
-Processing.jsは、
+　Processing.jsは、拡張子が.pdeであるProcessingのような実行ファイルとは違い、HTMLに読み込む.jsであるJavaScriptファイルになっている。  
+Processing.jsはProcessingの公式サイトのダウンロードページ(http://processingjs.org/download/)からダウンロードすることが可能である。  
+---  
+>Processing.jsの使い方
 
 
 
