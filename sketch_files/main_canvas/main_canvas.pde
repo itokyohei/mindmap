@@ -1,6 +1,7 @@
 PGraphics canvas, pallet, tab01, tab02, tab03;
 final float golden_ratio = 1.618;
 final float circle_ratio = 0.75;
+color selectColor = color(0, 0, 0);
 
 int size_height = 1000; //仕方ない
 int lv01_golden = round(size_height*(golden_ratio-1)); // 618
@@ -54,6 +55,9 @@ void makeColorpallet(PGraphics gg){
 void makeColorpallet_draw01(PGraphics gg, float r01, float r02){
   float on_rad = TWO_PI/360;
   gg.noStroke();
+  gg.fill(200);
+  gg.rect(-r01, -r01, r01*2, r01*2);
+  gg.noStroke();
   for(int i = 0; i < 360; i++){
     gg.fill(i, 100, 100);
     gg.arc(0, 0, r01*2, r01*2, i*on_rad, (i+1)*on_rad);
@@ -88,12 +92,13 @@ void makeWindow_show(){
 }
 
 void draw(){
-  color selectColor = color(0, 0, 0);
+  float gg_pallet_center_x = height + lv02_golden/2;
+  float gg_pallet_center_y = lv01_golden + lv02_golden/2;
+  float gg_pallet_squareOneSide = (1/sqrt(2))*circle_ratio*lv02_golden/2;
+
   if (mousePressed){
     float x = mouseX, y = mouseY;
-    float gg_pallet_center_x = height + lv02_golden/2;
-    float gg_pallet_center_y = lv01_golden + lv02_golden/2;
-    float gg_pallet_squareOneSide = (1/sqrt(2))*circle_ratio*lv02_golden/2;
+
     if (gg_pallet_center_x - gg_pallet_squareOneSide < x
     && x < gg_pallet_center_x + gg_pallet_squareOneSide
     && gg_pallet_center_y - gg_pallet_squareOneSide < y
@@ -101,6 +106,7 @@ void draw(){
       selectColor = get(round(x), round(y));
       // println("color", hue(selectColor), saturation(selectColor), brightness(selectColor));
     }
+
     if (circle_ratio*lv02_golden/2 < dist(x, y, gg_pallet_center_x, gg_pallet_center_y)
     && dist(x, y, gg_pallet_center_x, gg_pallet_center_y) < lv02_golden/2){
       selectColor = get(round(x), round(y));
@@ -110,6 +116,7 @@ void draw(){
       makeColorpallet_draw02(pallet, circle_ratio*lv02_golden/2, hue(selectColor));
       pallet.endDraw();
     }
+
     if (x < height && y <height){
       strokeWeight(10);
       stroke(selectColor);
