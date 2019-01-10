@@ -168,23 +168,23 @@ java.lang.OutOfMemoryError
   では、このprocessingを用いて当初の目的であったアプリや機能の作成を自分のような初心者にもわかるような説明書を書いていこうという方向性の元、卒業論文を書いていこうと思う。  
 ---  
 >関数一覧  
-	PGraphics pg;
+PGraphics pg;ウィンドウの新規作成  
 
-void setup() {
-  size(100, 100);
-  pg = createGraphics(40, 40);
-}
-
-void draw() {
-  pg.beginDraw();
-  pg.background(100);
-  pg.stroke(255);
-  pg.line(20, 20, mouseX, mouseY);
-  pg.endDraw();
-  image(pg, 9, 30); 
-  image(pg, 51, 30);
+void setup() {  
+  size(100, 100);  
+  pg = createGraphics(40, 40);  
 }  
-
+  
+void draw() {  
+  pg.beginDraw();  
+  pg.background(100);  
+  pg.stroke(255);  
+  pg.line(20, 20, mouseX, mouseY);  
+  pg.endDraw();  
+  image(pg, 9, 30);   
+  image(pg, 51, 30);  
+}  
+  
 final  
 値を変更できない変数。
 finalで修飾された変数。「final 型 変数名;」のように、変数宣言の修飾子にfinalを使用した変数。
