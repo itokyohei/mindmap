@@ -168,14 +168,64 @@ java.lang.OutOfMemoryError
   では、このprocessingを用いて当初の目的であったアプリや機能の作成を自分のような初心者にもわかるような説明書を書いていこうという方向性の元、卒業論文を書いていこうと思う。  
 ---  
 >関数一覧  
+	PGraphics pg;
 
- 
+void setup() {
+  size(100, 100);
+  pg = createGraphics(40, 40);
+}
 
+void draw() {
+  pg.beginDraw();
+  pg.background(100);
+  pg.stroke(255);
+  pg.line(20, 20, mouseX, mouseY);
+  pg.endDraw();
+  image(pg, 9, 30); 
+  image(pg, 51, 30);
+}  
 
+final  
+値を変更できない変数。
+finalで修飾された変数。「final 型 変数名;」のように、変数宣言の修飾子にfinalを使用した変数。
+　
+final変数は、変数に格納されている値を変更できない。つまり「定数」とすることができる。
+ただし、変更できないのは格納されている「値」のみである。そのため、参照型変数の場合、変更できないのは参照値のみで、参照先のインスタンスが格納する値はいくらでも変更できるため注意が必要。そのため、クラス及び配列の場合にはあまり効果がないと考えた方がいい。
+　
+ほとんどの場合はstatic finalフィールドの宣言時に使用する。  
+  
+int　　　整数値  
+float　　小数値  
+boolean　真偽値　真(true)か偽(false)かのどちらかの値  
+color　　色のデータ  
+  
 
+colorMode()  
+colorMode(RGB,256);RGBモード（R,G,B:各256段階）  
+colorMode(HSB,360,100,100);HSBモード（H:360段階, S,B:各100段階）  
+colorMode(HSB,360,100,100,100);HSBモード（H:360段階, S,B,Alpha:各100段階）  
 
+background()
+背景色に青を指定（RGBモードで）  
 
-
+stroke() 枠線  
+noStroke()枠線
+strokeWeight()枠線太さ  
+fill()塗りつぶし  
+  
+image(img, x, y);画像を表示（画像の変数名, 左上のx座標, 左上のy座標）
+  
+mouseX	マウスカーソルの水平方向の位置  
+mouseY	マウスカーソルの垂直方向の位置  
+pmouseX	前のフレームでのマウスカーソルの水平位置  
+pmouseY	前のフレームでのマウスカーソルの垂直位置  
+mousePressed	マウスボタンが押されているとtrue。そうでなけばfalse  
+mouseButton	押されているボタンはどれか (LEFT、RIGHT、CENTER)  
+mouseMoved()	マウスの移動時に呼び出される関数 (ボタンは押されていない状態)  
+mouseDragged()	ボタンが押された状態でマウスが移動したときに呼び出される関数  
+mousePressed()	マウスボタンが押されると呼び出される関数  
+mouseReleased()	マウスボタンから指が離れたときに呼び出される関数  
+mouseClicked()	マウスボタンが押されてから離されたときに呼び出される関数  
 
 
 
