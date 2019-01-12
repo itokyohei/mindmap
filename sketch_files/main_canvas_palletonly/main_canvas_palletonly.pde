@@ -1,4 +1,4 @@
-//5つのウィンドウを宣言
+//3つのウィンドウを宣言
 PGraphics canvas, pallet;
 // 宣言してから代入　finalこの変数の値を今後変えない
 final float golden_ratio = 1.618;
