@@ -149,14 +149,15 @@ void draw(){
       pallet.translate(lv02_golden/2, lv02_golden/2);
       makeColorpallet_draw02(pallet, circle_ratio*lv02_golden/2, hue(selectColor));
       pallet.endDraw();
+      image(pallet, height, lv01_golden);
     }
 
     // キャンバスだけ書けるように条件付け
-    if (x < height && y <height){
-      strokeWeight(10);
-      stroke(selectColor);
-      line(mouseX, mouseY, pmouseX, pmouseY);
-    }
+    canvas.beginDraw();
+    canvas.strokeWeight(10);
+    canvas.stroke(selectColor);
+    canvas.line(mouseX, mouseY, pmouseX, pmouseY);
+    canvas.endDraw();
+    image(canvas, 0, 0);
   }
-  image(pallet, height, lv01_golden);
 }

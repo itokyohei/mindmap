@@ -140,11 +140,11 @@ void draw(){
     }
 
     // キャンバスだけ書けるように条件付け
-    if (x < height && y <height){
-      strokeWeight(10);
-      stroke(selectColor);
-      line(mouseX, mouseY, pmouseX, pmouseY);
-    }
+    canvas.beginDraw();
+    canvas.strokeWeight(10);
+    canvas.stroke(selectColor);
+    canvas.line(mouseX, mouseY, pmouseX, pmouseY);
+    canvas.endDraw();
+    image(canvas, 0, 0);
   }
-
 }
