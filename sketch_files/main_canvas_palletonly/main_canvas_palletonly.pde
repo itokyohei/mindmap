@@ -83,13 +83,13 @@ void makeColorpallet_draw02(PGraphics gg, float r02, float color_hue){
   float start_separate_coordinate = -r02*(1/sqrt(2)); // スタートの座標
   gg.noStroke();
   //i=横 彩度　j=縦 明度
-  for(int i = 0; i < separate; i++){
+  for(int i = 1; i < separate; i++){
     for(int j = 0; j < separate; j++){
       //0～100の組み合わせ表現を半分のサイズにしている　100種類を50種類にしているから
       float change_saturation = 100*(i+1)/separate;
       float change_brightness = 100*(j+0)/separate;
       //分けた図形のなかをfillで指定した条件で塗りつぶすHSB
-      gg.fill(color_hue, 100-change_saturation, 100-change_brightness);
+      gg.fill(color_hue, change_saturation, 100-change_brightness);
       //分けた小さい正方形の座標をずらしながら書いていく　　+1した理由…枠なしで書いているため隙間が出来る
       gg.rect(start_separate_coordinate + separate_squareOneSide*i, start_separate_coordinate + separate_squareOneSide*j, separate_squareOneSide + 1, separate_squareOneSide + 1); // 縦書いて横に伸ばす
     }
