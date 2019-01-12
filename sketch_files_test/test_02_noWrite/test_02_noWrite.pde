@@ -13,7 +13,7 @@ void setup(){
 
 void draw(){
 
-  plintln(mouseX, mouseY);
+  println(mouseX, mouseY);
   if (mousePressed){
   strokeWeight(10);
   line(mouseX, mouseY, pmouseX, pmouseY);
