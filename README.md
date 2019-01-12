@@ -1,5 +1,5 @@
 # Mindmap
-卒論用の開発リポジトリ
+卒論用の開発リポジトリ<br>
 [processing](https://processing.org/)を使用
 
 ## バージョン
