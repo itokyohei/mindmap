@@ -89,7 +89,7 @@ void makeColorpallet_draw02(PGraphics gg, float r02, float color_hue){
       float change_saturation = 100*(i+1)/separate;
       float change_brightness = 100*(j+0)/separate;
       //分けた図形のなかをfillで指定した条件で塗りつぶすHSB
-      gg.fill(color_hue, change_saturation, 100-change_brightness);
+      gg.fill(color_hue, 100-change_saturation, 100-change_brightness);
       //分けた小さい正方形の座標をずらしながら書いていく　　+1した理由…枠なしで書いているため隙間が出来る
       gg.rect(start_separate_coordinate + separate_squareOneSide*i, start_separate_coordinate + separate_squareOneSide*j, separate_squareOneSide + 1, separate_squareOneSide + 1); // 縦書いて横に伸ばす
     }
