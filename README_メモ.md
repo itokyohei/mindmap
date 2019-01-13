@@ -228,7 +228,6 @@ mousePressed()	マウスボタンが押されると呼び出される関数
 mouseReleased()	マウスボタンから指が離れたときに呼び出される関数  
 mouseClicked()	マウスボタンが押されてから離されたときに呼び出される関数  
   
-return　呼び出し元へ戻る  
 println(data) ()内に書かれた内容を画面に出力して改行する  
   
 ellipse()　ellipse( 中心のx座標, 中心のy座標, 横の直径, 縦の直径 );円、楕円を書く  
