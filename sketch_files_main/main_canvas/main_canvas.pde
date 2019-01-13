@@ -1,13 +1,18 @@
 PGraphics canvas, pallet, tab01, tab02, tab03;
 final float golden_ratio = 1.618;
 final float circle_ratio = 0.75;
-color selectColor = color(0, 0, 0);
-PGraphics[] tab01_separate, tab02_separate, tab03_separate;
+color selectColor = color(0, 0, 0); //ウィンドウサイズが100と同じ
+color eraserColor = color(255, 255, 255);
 
 int size_height = 1000; //仕方ない
 int lv01_golden = round(size_height*(golden_ratio-1)); // 618
 int lv02_golden = round(lv01_golden*(golden_ratio-1)); // 382
 int lv03_golden = round(lv02_golden*(golden_ratio-1)); // 236
+
+float pen_size = 0.5; //0.5 2 5
+float ers_size = 0.1; //0.1 1 5
+
+boolean ers_change = false;
 
 void setup(){
   size(1618, 1000);
@@ -16,12 +21,6 @@ void setup(){
   makeWindow();
   makeWindow_setup01(canvas, color(0, 0, 100));
   makeColorpallet(pallet);
-
-  tab01_separate = maketab00_separate(tab01, tab01_separate, height, 140);
-  tab02_separate = maketab00_separate(tab02, tab02_separate, height+lv02_golden/2, 210);
-  tab03_separate = maketab00_separate(tab03, tab03_separate, height+lv02_golden, 280);
-
-  maketab00_separate_show01();
 
   makeWindow_show();
 }
@@ -81,16 +80,6 @@ void makeColorpallet_draw02(PGraphics gg, float r02, float color_hue){
   }
 }
 
-PGraphics[] maketab00_separate(PGraphics jj, PGraphics[] tab00_separate, float start_x, int cc){
-  int base_x = jj.width, base_y = jj.height;
-  int separate_count = floor(base_y / base_x);
-  tab00_separate = new PGraphics[separate_count];
-  for (int i = 0; i < separate_count; i++){
-    tab00_separate[i] = createGraphics(base_x, base_y / separate_count);
-    makeWindow_setup01(tab00_separate[i], color(cc, 30+i*15, 60));
-  }
-  return tab00_separate;
-}
 void makeWindow_show(){
   image(canvas, 0, 0);
   image(pallet, height, lv01_golden);
@@ -99,16 +88,41 @@ void makeWindow_show(){
   //image(tab03, height+lv02_golden, 0);
 }
 
-void maketab00_separate_show01(){
-  maketab00_separate_show02(tab01, tab01_separate, height, 0);
-  maketab00_separate_show02(tab02, tab02_separate, height+lv02_golden/2, 0);
-  maketab00_separate_show02(tab03, tab03_separate, height+lv02_golden, 0);
-}
-
-void maketab00_separate_show02(PGraphics hh, PGraphics[] tab00_separate, int start_x, int start_y){
-  int separate_count = floor(hh.height / hh.width);
-  for (int i=0; i < separate_count; i++){
-    image(tab00_separate[i], start_x, start_y + i*tab00_separate[i].height);
+void mouseClicked(){
+  float x = mouseX, y = mouseY;
+  if ( height < x && x < height+lv02_golden/2
+  && lv01_golden*0/3 < y && y < lv01_golden*1/3){
+    ers_change = false;
+    pen_size = 0.5*10;
+    println(pen_size, ers_size, ers_change);
+  }else if(height < x && x < height+lv02_golden/2
+  && lv01_golden*1/3 < y && y < lv01_golden*2/3){
+    ers_change = false;
+    pen_size = 2*10;
+    println(pen_size, ers_size, ers_change);
+  }else if(height < x && x < height+lv02_golden/2
+  && lv01_golden*2/3 < y && y < lv01_golden*3/3){
+    ers_change = false;
+    pen_size = 5*10;
+    println(pen_size, ers_size, ers_change);
+  }
+  else if(height+lv02_golden/2 < x && x < height+lv02_golden
+  && lv01_golden*0/3 < y && y < lv01_golden*1/3){
+    ers_change = true;
+    ers_size = 0.1*10;
+    println(pen_size, ers_size, ers_change);
+  }
+  else if(height+lv02_golden/2 < x && x < height+lv02_golden
+  && lv01_golden*1/3 < y && y < lv01_golden*2/3){
+    ers_change = true;
+    ers_size = 1*10;
+    println(pen_size, ers_size, ers_change);
+  }
+  else if(height+lv02_golden/2 < x && x < height+lv02_golden
+  && lv01_golden*2/3 < y && y < lv01_golden*3/3){
+    ers_change = true;
+    ers_size = 5*10;
+    println(pen_size, ers_size, ers_change);
   }
 }
 
@@ -130,8 +144,8 @@ void draw(){
 
     // カラーパレットの彩度と明度　dist 座標から座標の距離　円の領域指定
     if (circle_ratio*lv02_golden/2 < dist(x, y, gg_pallet_center_x, gg_pallet_center_y)
-    && dist(x, y, gg_pallet_center_x, gg_pallet_center_y) < lv02_golden/2)
-    {selectColor = get(round(x), round(y));
+    && dist(x, y, gg_pallet_center_x, gg_pallet_center_y) < lv02_golden/2){
+      selectColor = get(round(x), round(y));
       pallet.beginDraw();
       pallet.translate(lv02_golden/2, lv02_golden/2);
       makeColorpallet_draw02(pallet, circle_ratio*lv02_golden/2, hue(selectColor));
@@ -141,8 +155,13 @@ void draw(){
 
     // キャンバスだけ書けるように条件付け
     canvas.beginDraw();
-    canvas.strokeWeight(10);
-    canvas.stroke(selectColor);
+    if (ers_change){
+      canvas.stroke(eraserColor);
+      canvas.strokeWeight(ers_size);
+    }else{
+      canvas.stroke(selectColor);
+      canvas.strokeWeight(pen_size);
+    }
     canvas.line(mouseX, mouseY, pmouseX, pmouseY);
     canvas.endDraw();
     image(canvas, 0, 0);
