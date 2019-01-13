@@ -1,25 +1,29 @@
-PGraphics canvas, pallet;
+PGraphics canvas, pallet;　　　//2つのウィンドウを宣言している
+
 final float golden_ratio = 1.618;
-final float circle_ratio = 0.75;
-color selectColor = color(0, 0, 0);
 int size_height = 1000;
 int lv01_golden = round(size_height*(golden_ratio-1)); 
 int lv02_golden = round(lv01_golden*(golden_ratio-1)); 
 int lv03_golden = round(lv02_golden*(golden_ratio-1));
+final float circle_ratio = 0.75;　　　//完成図のように作成するため、ウィンドウサイズ・カラーパレットを作成する上で必要になってくる比の値をとる。関数や変数を作る際に使用する。
+int lv01_golden=618、int lv02_golden=382、int lv03_golden=236の値をとる。
+
+color selectColor;　　　//型がcolor、変数がselectColorであり、関数を超えても使えるようにしたいのでここで記述する。
+
 
 void setup(){
-  size(1618, 1000);
-  colorMode(HSB, 360, 100, 100);
-  makeWindow();
+  size(1618, 1000);　//全体のウィンドウサイズを作成している
+  colorMode(HSB, 360, 100, 100);　　//カラーパレットで色を取る際にHSBのほうが直観的に色を選択できるため、RGB→HSBに変更している。
+  
+  makeWindow();　　//自作の関数makeWindow()を作成した。canvas(今回でいうイラストを描く部分になる領域)について…ではmakeWindow()の中身がどうなっているのかというと
   makeWindow_setup01(canvas, color(0, 0, 100));
   makeColorpallet(pallet);
-
-  makeWindow_show();
+  makeWindow_show();　
 }
 
 void makeWindow(){
   canvas = createGraphics(height, height);
-  pallet = createGraphics(lv02_golden, lv02_golden);
+  pallet = createGraphics(lv02_golden, lv02_golden);　//ウィンドウサイズの設定をしている。canvasは実際に書く部分の1000×1000、palletはカラーパレット部分の382×382ウィンドウを作成している。
 
 }
 
@@ -27,7 +31,7 @@ void makeWindow_setup01(PGraphics ff, color base_color){
   ff.beginDraw();
   ff.colorMode(HSB, 360, 100, 100);
   ff.background(base_color);
-  ff.endDraw();
+  ff.endDraw();   //背景色を作成する関数を作っている。
 }
 
 void makeColorpallet(PGraphics gg){
