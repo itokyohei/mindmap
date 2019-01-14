@@ -2,7 +2,7 @@ PGraphics pallet, tab01, tab02, tab03;
 final float golden_ratio = 1.618;
 final float circle_ratio = 0.75;
 color selectColor = color(0, 0, 0); //ウィンドウサイズが100と同じ
-color eraserColor = color(255, 255, 255);
+color eraserColor = color(255, 255, 255);//消しゴムの色
 
 int size_height = 1000; //仕方ない
 int lv01_golden = round(size_height*(golden_ratio-1)); // 618
@@ -12,7 +12,7 @@ int lv03_golden = round(lv02_golden*(golden_ratio-1)); // 236
 float pen_size = 0.5; //0.5 2 5
 float ers_size = 0.1; //0.1 1 5
 
-boolean ers_change = false;
+boolean ers_change = false;//ペンか消しゴムかの判別
 
 PImage[] stepImg;
 int stepImgNumber = 15; //保存する画像数
@@ -35,7 +35,7 @@ void setup(){
 
   makeWindow_show();
 
-  stepImg = new PImage[stepImgNumber];
+  stepImg = new PImage[stepImgNumber];//15個を1セットとし配列を宣言した
   make_stepImg_setup();
 }
 void makeWindow(){
@@ -107,8 +107,8 @@ void make_stepImg_setup(){
   }
 }
 void save_stepImg(){
-  backCount = min(backCount+1, round(stepImgNumber/2));
-  forwardCount = 0;
+  backCount = min(backCount+1, stepImgNumber-1);
+  forwardCount = 0;//新しく書いてしまったときに、進めないようにするために0としている。
   stepImgCount_add();
   stepImg[stepImgCount] = get(0, 0, 1000, 1000);
 }
@@ -129,13 +129,13 @@ void redo(){
   }
 }
 void stepImgCount_add(){
-  stepImgCount = (stepImgCount + 1) % stepImgNumber;
+  stepImgCount = (stepImgCount + 1) % stepImgNumber;//次に追加する配列番号が16番目になってしまった場合今回だと15までしかなく無理なので割った余りを使い、前に保存していた配列番号1番を参照する。(16÷15=1…1)
 }
 void stepImgCount_sub(){
-  stepImgCount = (stepImgCount - 1 + stepImgNumber) % stepImgNumber;
+  stepImgCount = (stepImgCount - 1 + stepImgNumber) % stepImgNumber;//stepImgCount_addの戻る版であり、配列番号がマイナスになってしまった場合、15番目から減らした配列番号を取りたいためこの関数を設定した。
 }
 void show_stepImg(){
-  image(stepImg[stepImgCount], 0, 0);
+  image(stepImg[stepImgCount], 0, 0);//参照したイメージデータを(0,0)に貼り付ける。
 }
 
 void mouseClicked(){
@@ -144,35 +144,29 @@ void mouseClicked(){
   && lv01_golden*0/3 < y && y < lv01_golden*1/3){
     ers_change = false;
     pen_size = 0.5*10;
-    println(pen_size, ers_size, ers_change);
   }else if(height < x && x < height+lv02_golden/2
   && lv01_golden*1/3 < y && y < lv01_golden*2/3){
     ers_change = false;
     pen_size = 2*10;
-    println(pen_size, ers_size, ers_change);
   }else if(height < x && x < height+lv02_golden/2
   && lv01_golden*2/3 < y && y < lv01_golden*3/3){
     ers_change = false;
     pen_size = 5*10;
-    println(pen_size, ers_size, ers_change);
   }
   else if(height+lv02_golden/2 < x && x < height+lv02_golden
   && lv01_golden*0/3 < y && y < lv01_golden*1/3){
     ers_change = true;
     ers_size = 0.1*10;
-    println(pen_size, ers_size, ers_change);
   }
   else if(height+lv02_golden/2 < x && x < height+lv02_golden
   && lv01_golden*1/3 < y && y < lv01_golden*2/3){
     ers_change = true;
     ers_size = 1*10;
-    println(pen_size, ers_size, ers_change);
   }
   else if(height+lv02_golden/2 < x && x < height+lv02_golden
   && lv01_golden*2/3 < y && y < lv01_golden*3/3){
     ers_change = true;
     ers_size = 5*10;
-    println(pen_size, ers_size, ers_change);
   }
   else if(height+lv02_golden < x && x < height+lv01_golden
   && height*3/4 < y && y < height*4/4){
@@ -187,12 +181,12 @@ void mousePressed(){
   if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000){
     changeCanvas = true;
   }
-}
+}　　　//キャンバスに変更があったかを認識するため。
 void mouseDragged(){
   if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000){
     changeCanvas = true;
   }
-}
+}　　　//スタートがキャンバス外からでも書いていると認識させるため。
 void mouseReleased(){
   if (changeCanvas){
     save_stepImg();
@@ -270,13 +264,12 @@ void keyPressed(){
       dayString = nf(dayY, 4) + nf(dayM, 2) + nf(dayD, 2);
       timeString = nf(timeH, 2) + nf(timeM, 2) + "-" + nf(timeS, 2);
       get(0, 0, 1000, 1000).save("image_" + dayString + "_" + timeString +".png");
-      println("保存しました");
     }
     if (keyCode == 'A' && !downShift){
       noStroke();
       fill(color(0, 0, 100));
       rect(0, 0, 1000, 1000);
-      make_stepImg_setup();
+      make_stepImg_setup();//戻る、進むで使用する一時保存された画像を消す(白で上書きする)
     }
     return;
   }
