@@ -1,4 +1,5 @@
-PGraphics canvas, pallet, tab01, tab02, tab03;
+//PGraphics canvas;
+PGraphics pallet, tab01, tab02, tab03;
 final float golden_ratio = 1.618;
 final float circle_ratio = 0.75;
 color selectColor = color(0, 0, 0); //ウィンドウサイズが100と同じ
@@ -19,23 +20,31 @@ void setup(){
 
   colorMode(HSB, 360, 100, 100);
   makeWindow();
-  makeWindow_setup01(canvas, color(0, 0, 100));
+  //makeWindow_setup01(canvas, color(0, 0, 100));
+  makeWindow_setup02(color(0, 0, 100));
   makeColorpallet(pallet);
 
   makeWindow_show();
 }
 void makeWindow(){
-  canvas = createGraphics(height, height);
+  //canvas = createGraphics(height, height);
   pallet = createGraphics(lv02_golden, lv02_golden);
   tab01 = createGraphics(lv02_golden/2, lv01_golden);
   tab02 = createGraphics(lv02_golden/2, lv01_golden);
   tab03 = createGraphics(lv03_golden, height);
 }
+/*
 void makeWindow_setup01(PGraphics ff, color base_color){
   ff.beginDraw();
   ff.colorMode(HSB, 360, 100, 100);
   ff.background(base_color);
   ff.endDraw();
+}
+*/
+void makeWindow_setup02(color base_color){
+  noStroke();
+  fill(base_color);
+  rect(0, 0, 1000, 1000);
 }
 
 void makeColorpallet(PGraphics gg){
@@ -81,7 +90,7 @@ void makeColorpallet_draw02(PGraphics gg, float r02, float color_hue){
 }
 
 void makeWindow_show(){
-  image(canvas, 0, 0);
+  //image(canvas, 0, 0);
   image(pallet, height, lv01_golden);
   //image(tab01, height, 0);
   //image(tab02, height+lv02_golden/2, 0);
@@ -154,16 +163,18 @@ void draw(){
     }
 
     // キャンバスだけ書けるように条件付け
-    canvas.beginDraw();
-    if (ers_change){
-      canvas.stroke(eraserColor);
-      canvas.strokeWeight(ers_size);
-    }else{
-      canvas.stroke(selectColor);
-      canvas.strokeWeight(pen_size);
+    if (mousePressed){
+      if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000
+      && 0 < pmouseX && pmouseX < 1000 && 0 < pmouseY && pmouseY < 1000){
+        if (ers_change){
+          stroke(eraserColor);
+          strokeWeight(ers_size);
+        }else{
+          stroke(selectColor);
+          strokeWeight(pen_size);
+        }
+      line(mouseX, mouseY, pmouseX, pmouseY);
+      }
     }
-    canvas.line(mouseX, mouseY, pmouseX, pmouseY);
-    canvas.endDraw();
-    image(canvas, 0, 0);
   }
 }

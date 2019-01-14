@@ -1,4 +1,4 @@
-PGraphics canvas, pallet, tab01, tab02, tab03;
+PGraphics pallet, tab01, tab02, tab03;
 final float golden_ratio = 1.618;
 final float circle_ratio = 0.75;
 color selectColor = color(0, 0, 0); //ウィンドウサイズが100と同じ
@@ -14,28 +14,41 @@ float ers_size = 0.1; //0.1 1 5
 
 boolean ers_change = false;
 
+PImage[] stepImg;
+int stepImgNumber = 15; //保存する画像数
+int backCount = 0, forwardCount = 0; // 戻った回数進んだ回数
+int stepImgCount; // 取り出す画像の指定
+boolean changeCanvas = false;
+
+boolean downCtrl = false, downShift = false;
+
+int dayY, dayM, dayD, timeH, timeM, timeS;
+String dayString, timeString;
+
 void setup(){
   size(1618, 1000);
 
   colorMode(HSB, 360, 100, 100);
   makeWindow();
-  makeWindow_setup01(canvas, color(0, 0, 100));
+  makeWindow_setup02(color(0, 0, 100));
   makeColorpallet(pallet);
 
   makeWindow_show();
+
+  stepImg = new PImage[stepImgNumber];
+  make_stepImg_setup();
 }
 void makeWindow(){
-  canvas = createGraphics(height, height);
+  //canvas = createGraphics(height, height);
   pallet = createGraphics(lv02_golden, lv02_golden);
   tab01 = createGraphics(lv02_golden/2, lv01_golden);
   tab02 = createGraphics(lv02_golden/2, lv01_golden);
   tab03 = createGraphics(lv03_golden, height);
 }
-void makeWindow_setup01(PGraphics ff, color base_color){
-  ff.beginDraw();
-  ff.colorMode(HSB, 360, 100, 100);
-  ff.background(base_color);
-  ff.endDraw();
+void makeWindow_setup02(color base_color){
+  noStroke();
+  fill(base_color);
+  rect(0, 0, 1000, 1000);
 }
 
 void makeColorpallet(PGraphics gg){
@@ -81,11 +94,48 @@ void makeColorpallet_draw02(PGraphics gg, float r02, float color_hue){
 }
 
 void makeWindow_show(){
-  image(canvas, 0, 0);
+  //image(canvas, 0, 0);
   image(pallet, height, lv01_golden);
   //image(tab01, height, 0);
   //image(tab02, height+lv02_golden/2, 0);
   //image(tab03, height+lv02_golden, 0);
+}
+
+void make_stepImg_setup(){
+  for (int i=0; i<stepImgNumber; i++){
+    stepImg[i] = get(0, 0, 1000, 1000);
+  }
+}
+void save_stepImg(){
+  backCount = min(backCount+1, round(stepImgNumber/2));
+  forwardCount = 0;
+  stepImgCount_add();
+  stepImg[stepImgCount] = get(0, 0, 1000, 1000);
+}
+void undo(){
+  if (0 < backCount){
+    backCount--;
+    forwardCount++;
+    stepImgCount_sub();
+    show_stepImg();
+  }
+}
+void redo(){
+  if (0 < forwardCount){
+    backCount++;
+    forwardCount--;
+    stepImgCount_add();
+    show_stepImg();
+  }
+}
+void stepImgCount_add(){
+  stepImgCount = (stepImgCount + 1) % stepImgNumber;
+}
+void stepImgCount_sub(){
+  stepImgCount = (stepImgCount - 1 + stepImgNumber) % stepImgNumber;
+}
+void show_stepImg(){
+  image(stepImg[stepImgCount], 0, 0);
 }
 
 void mouseClicked(){
@@ -124,6 +174,30 @@ void mouseClicked(){
     ers_size = 5*10;
     println(pen_size, ers_size, ers_change);
   }
+  else if(height+lv02_golden < x && x < height+lv01_golden
+  && height*3/4 < y && y < height*4/4){
+    undo();
+  }
+  else if(height+lv02_golden < x && x < height+lv01_golden
+  && height*2/4 < y && y < height*3/4){
+    redo();
+  }
+}
+void mousePressed(){
+  if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000){
+    changeCanvas = true;
+  }
+}
+void mouseDragged(){
+  if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000){
+    changeCanvas = true;
+  }
+}
+void mouseReleased(){
+  if (changeCanvas){
+    save_stepImg();
+    changeCanvas = false;
+  }
 }
 
 void draw(){
@@ -154,16 +228,66 @@ void draw(){
     }
 
     // キャンバスだけ書けるように条件付け
-    canvas.beginDraw();
-    if (ers_change){
-      canvas.stroke(eraserColor);
-      canvas.strokeWeight(ers_size);
-    }else{
-      canvas.stroke(selectColor);
-      canvas.strokeWeight(pen_size);
+    if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000
+    && 0 < pmouseX && pmouseX < 1000 && 0 < pmouseY && pmouseY < 1000){
+      if (ers_change){
+        stroke(eraserColor);
+        strokeWeight(ers_size);
+      }else{
+        stroke(selectColor);
+        strokeWeight(pen_size);
+      }
+    line(mouseX, mouseY, pmouseX, pmouseY);
     }
-    canvas.line(mouseX, mouseY, pmouseX, pmouseY);
-    canvas.endDraw();
-    image(canvas, 0, 0);
+  }
+}
+
+void keyPressed(){
+  if (key == CODED){
+    if (keyCode == CONTROL){
+      downCtrl = true;
+    }
+    if (keyCode == SHIFT){
+      downShift = true;
+    }
+    return;
+  }
+  if (downCtrl){
+    if (keyCode == 'Z'){
+      if (downShift){
+        redo();
+      }else{
+        undo();
+      }
+    }
+    if (keyCode == 'S' && !downShift){
+      dayY = year();
+      dayM = month();
+      dayD = day();
+      timeH = hour();
+      timeM = minute();
+      timeS = second();
+      dayString = nf(dayY, 4) + nf(dayM, 2) + nf(dayD, 2);
+      timeString = nf(timeH, 2) + nf(timeM, 2) + "-" + nf(timeS, 2);
+      get(0, 0, 1000, 1000).save("image_" + dayString + "_" + timeString +".png");
+      println("保存しました");
+    }
+    if (keyCode == 'A' && !downShift){
+      noStroke();
+      fill(color(0, 0, 100));
+      rect(0, 0, 1000, 1000);
+      make_stepImg_setup();
+    }
+    return;
+  }
+}
+void keyReleased() {
+  if (key == CODED) {
+    if (keyCode == CONTROL){
+      downCtrl = false;
+    }
+    if (keyCode == SHIFT){
+      downShift = false;
+    }
   }
 }
