@@ -134,7 +134,8 @@ void draw(){
     }
 
     // キャンバスだけ書けるように条件付け
-    if (x < height && y <height){
+    if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000
+    && 0 < pmouseX && pmouseX < 1000 && 0 < pmouseY && pmouseY < 1000){
       strokeWeight(10);
       stroke(selectColor);
       line(mouseX, mouseY, pmouseX, pmouseY);
