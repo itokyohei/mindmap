@@ -1,0 +1,12 @@
+make_stepImg_setup()
+save_stepImg()
+undo()
+redo()
+stepImgCount_add()
+stepImgCount_sub()
+show_stepImg()
+mouseClicked()
+  タブのエリアクリック
+mousePressed()
+mouseDragged()
+mouseReleased()

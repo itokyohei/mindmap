@@ -20,7 +20,7 @@ int backCount = 0, forwardCount = 0; // 戻った回数進んだ回数
 int stepImgCount; // 取り出す画像の指定
 boolean changeCanvas = false;
 
-boolean downCtrl = false, downShift = false;
+boolean downCtrl = false, downShift = false, downA = false;
 
 int dayY, dayM, dayD, timeH, timeM, timeS;
 String dayString, timeString;
@@ -110,7 +110,7 @@ void save_stepImg(){
   backCount = min(backCount+1, round(stepImgNumber/2));
   forwardCount = 0;
   stepImgCount_add();
-  stepImg[stepImgCount] = get(0, 0, 1000, 1000);
+  stepImg[stepImgCount] = get(0, 0, height, height);
 }
 void undo(){
   if (0 < backCount){
@@ -184,12 +184,12 @@ void mouseClicked(){
   }
 }
 void mousePressed(){
-  if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000){
+  if (0 < mouseX && mouseX < height && 0 < mouseY && mouseY < height){
     changeCanvas = true;
   }
 }
 void mouseDragged(){
-  if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000){
+  if (0 < mouseX && mouseX < height && 0 < mouseY && mouseY < height){
     changeCanvas = true;
   }
 }
@@ -228,8 +228,8 @@ void draw(){
     }
 
     // キャンバスだけ書けるように条件付け
-    if (0 < mouseX && mouseX < 1000 && 0 < mouseY && mouseY < 1000
-    && 0 < pmouseX && pmouseX < 1000 && 0 < pmouseY && pmouseY < 1000){
+    if (0 < mouseX && mouseX < height && 0 < mouseY && mouseY < height
+    && 0 < pmouseX && pmouseX < height && 0 < pmouseY && pmouseY < height){
       if (ers_change){
         stroke(eraserColor);
         strokeWeight(ers_size);
@@ -243,6 +243,10 @@ void draw(){
 }
 
 void keyPressed(){
+  if (keyCode == 'A'){
+    downA = true;
+    return;
+  }
   if (key == CODED){
     if (keyCode == CONTROL){
       downCtrl = true;
@@ -269,14 +273,21 @@ void keyPressed(){
       timeS = second();
       dayString = nf(dayY, 4) + nf(dayM, 2) + nf(dayD, 2);
       timeString = nf(timeH, 2) + nf(timeM, 2) + "-" + nf(timeS, 2);
-      get(0, 0, 1000, 1000).save("image_" + dayString + "_" + timeString +".png");
+      get(0, 0, height, height).save("image_" + dayString + "_" + timeString +".png");
       println("保存しました");
     }
-    if (keyCode == 'A' && !downShift){
-      noStroke();
-      fill(color(0, 0, 100));
-      rect(0, 0, 1000, 1000);
-      make_stepImg_setup();
+    if (downShift && downA){
+      if (keyCode == 'D'){ //最後にDを押さないと実行しない
+        noStroke();
+        fill(color(0, 0, 100));
+        rect(0, 0, 1000, 1000);
+        make_stepImg_setup();
+        backCount = 0;
+        forwardCount = 0;
+        stepImgCount = 0;
+        changeCanvas = false;
+        println("すべて削除");
+      }
     }
     return;
   }
@@ -289,5 +300,8 @@ void keyReleased() {
     if (keyCode == SHIFT){
       downShift = false;
     }
+  }
+  if (keyCode == 'A'){
+    downA = false;
   }
 }
