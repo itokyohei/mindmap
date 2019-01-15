@@ -310,16 +310,16 @@ void mouseReleased(){
 void draw(){
   float gg_pallet_center_x = height + lv02_golden/2;
   float gg_pallet_center_y = lv01_golden + lv02_golden/2;
-  float gg_pallet_squareOneSide = (1/sqrt(2))*circle_ratio*lv02_golden/2;
+  float gg_pallet_halfSquareOneSide = (1/sqrt(2))*circle_ratio*lv02_golden/2;
 
   if (mousePressed){
     float x = mouseX, y = mouseY;
 
     // カラーパレットの色相
-    if (gg_pallet_center_x - gg_pallet_squareOneSide < x
-    && x < gg_pallet_center_x + gg_pallet_squareOneSide
-    && gg_pallet_center_y - gg_pallet_squareOneSide < y
-    && y < gg_pallet_center_y + gg_pallet_squareOneSide){
+    if (gg_pallet_center_x - gg_pallet_halfSquareOneSide < x
+    && x < gg_pallet_center_x + gg_pallet_halfSquareOneSide
+    && gg_pallet_center_y - gg_pallet_halfSquareOneSide < y
+    && y < gg_pallet_center_y + gg_pallet_halfSquareOneSide){
       selectColor = get(round(x), round(y));
     }
 
